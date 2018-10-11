@@ -1,0 +1,4 @@
+module CNIOHTTPParser {
+    umbrella "/Users/smac/Library/Mobile Documents/com~apple~CloudDocs/Work/server/one-thing/.build/checkouts/swift-nio.git-6049720970639341276/Sources/CNIOHTTPParser/include"
+    export *
+}

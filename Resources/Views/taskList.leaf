@@ -1,0 +1,8 @@
+
+#set("body") {
+<p>This is the body</p>
+}
+#set("h1") {This is the h1}
+#set("title") {this is the title}
+
+#embed("master")

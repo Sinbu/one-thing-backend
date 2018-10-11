@@ -1,0 +1,4 @@
+module CNIOOpenSSL {
+    umbrella "/Users/smac/Library/Mobile Documents/com~apple~CloudDocs/Work/server/one-thing/.build/checkouts/swift-nio-ssl.git-7664976223288732864/Sources/CNIOOpenSSL/include"
+    export *
+}
