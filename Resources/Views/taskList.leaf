@@ -1,8 +1,16 @@
 
 #set("body") {
-<p>This is the body</p>
+<ul>
+#for(task in tasks) {
+<h2>#(task.title)</h2>
+	<ul>
+		<li>Size - #(task.size)</li>
+    	<li>Order - #(task.order)</li>
+
+	</ul>
 }
-#set("h1") {This is the h1}
-#set("title") {this is the title}
+}
+#set("h1") {List of tasks}
+#set("title") {One Thing}
 
 #embed("master")

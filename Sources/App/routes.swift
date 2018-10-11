@@ -61,7 +61,7 @@ public func routes(_ router: Router) throws {
     taskRouterView.get(Task.parameter) { req -> Future<View> in
         let task = try req.parameters.next(Task.self)
         
-        let context = [String:String]()
+        let context = task
         return try req.view().render("task", context)
     }
     
@@ -70,7 +70,7 @@ public func routes(_ router: Router) throws {
         
         let allTasks = Task.query(on: req).all()
         
-        let context = [String:String]()
+        let context = ["tasks": allTasks]
         return try req.view().render("taskList", context)
     }
 }

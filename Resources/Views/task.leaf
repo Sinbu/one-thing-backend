@@ -1,8 +1,11 @@
 
 #set("body") {
-<p>This is the body</p>
+<ul>
+    <li>Size: #(size)</li>
+    <li>Order: #(order)</li>
+</ul>
 }
-#set("h1") {This is the h1}
-#set("title") {this is the title}
+#set("h1") {#(title)}
+#set("title") {#(title)}
 
 #embed("master")

@@ -13,6 +13,6 @@ import FluentSQLite
 struct Task: Content, SQLiteUUIDModel, Migration, Parameter {
     var id: UUID?
     var title: String
-    var priority: String
+    var size: String
     var order: Int
 }
