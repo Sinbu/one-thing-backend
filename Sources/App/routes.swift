@@ -69,9 +69,12 @@ public func routes(_ router: Router) throws {
     
     // MARK: DELETE
     
-    taskRouter.delete(UUID.parameter) { req -> Future<Task> in
+    taskRouter.delete(UUID.parameter) { req -> Future<[Task]> in
         let id = try req.parameters.next(UUID.self)
-        return Task.find(id, on: req).unwrap(or: Abort(.notFound)).delete(on: req)
+        return Task.find(id, on: req).unwrap(or: Abort(.notFound)).delete(on: req).flatMap(to: [Task].self) { tasks in
+            let allTasks = Task.query(on: req).all()
+            return allTasks
+        }
     }
     
     // MARK: - Views
