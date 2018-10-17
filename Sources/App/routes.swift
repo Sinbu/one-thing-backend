@@ -57,6 +57,16 @@ public func routes(_ router: Router) throws {
         }
     }
     
+    taskRouter.put([Task].self, at:"update") { req, tasks -> Future<[Task]> in
+        // TODO: Do this correctly
+        
+        for task in tasks {
+            task.save(on: req)
+        }
+        
+        return Task.query(on: req).all()
+    }
+    
     // MARK: DELETE
     
     taskRouter.delete(UUID.parameter) { req -> Future<Task> in
