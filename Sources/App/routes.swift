@@ -33,9 +33,11 @@ public func routes(_ router: Router) throws {
     }
     
     // MARK: POST
-    taskRouter.post(Task.self, at:"create") { req, task  -> Task in
-        task.save(on: req)
-        return task
+    taskRouter.post(Task.self, at:"create") { req, task  -> Future<[Task]> in
+        return task.save(on: req).flatMap(to: [Task].self) { tasks in
+            let allTasks = Task.query(on: req).all()
+            return allTasks
+        }
     }
     
     // MARK: PUT
