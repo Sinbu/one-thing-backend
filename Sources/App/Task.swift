@@ -15,4 +15,5 @@ struct Task: Content, SQLiteUUIDModel, Migration, Parameter {
     var title: String
     var size: String
     var order: Int
+    var dateCompleted: Date?
 }
