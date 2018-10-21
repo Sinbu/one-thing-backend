@@ -95,4 +95,10 @@ public func routes(_ router: Router) throws {
         let context = ["tasks": allTasks]
         return try req.view().render("taskList", context)
     }
+    
+    taskRouterView.post(Task.self, at:"create") { req, task  -> Future<Response> in
+        return task.save(on: req).map(to: Response.self) { _ in
+            return req.redirect(to: "/v1/task/view/")
+        }
+    }
 }

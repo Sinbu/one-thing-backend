@@ -1,16 +1,55 @@
 
 #set("body") {
-<ul>
-#for(task in tasks) {
-<h2>#(task.title)</h2>
-	<ul>
-		<li>Size - #(task.size)</li>
-    	<li>Order - #(task.order)</li>
+<form name="form" action="/v1/task/view/create" method="POST">
+<div class="form-group">
+    <input type="text" name="title" class="form-control" placeholder="Enter a new task...">
+ </div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="size" value="small" checked>
+  <label class="form-check-label">
+    Small
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="size" value="medium">
+  <label class="form-check-label">
+    Medium
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="size" value="large">
+  <label class="form-check-label">
+    Large
+  </label>
+</div>
+<br>
+<button type="submit" class="btn btn-primary" name="order" value="#count(tasks)" onsubmit="this.reset;">Submit Task</button>
+</form>
 
+
+<h1>Current Tasks</h1>
+	<ul class="list-group">
+	#for(task in tasks) {
+		#if(task.dateCompleted == nil) {
+		  <li class="list-group-item d-flex justify-content-between align-items-center">#{task.title}
+		    <span class="badge badge-primary badge-pill">test2</span>
+		  </li>
+			
+		}
+	}
 	</ul>
+	<h1>Completed Tasks</h1>
+	#for(task in tasks) {
+		#if(task.dateCompleted) {
+			<h2>#(task.title)</h2>
+			<ul>
+				<li>#(task.size)</li>
+			</ul>
+		}
+	}
 }
-}
-#set("h1") {List of tasks}
+#set("h1") {New Task}
 #set("title") {One Thing}
 
 #embed("master")
+#set("script") {}
