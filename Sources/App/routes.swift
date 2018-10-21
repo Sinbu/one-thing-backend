@@ -90,7 +90,7 @@ public func routes(_ router: Router) throws {
     taskRouterView.get() { req -> Future<View> in
         
         
-        let allTasks = Task.query(on: req).all()
+        let allTasks = Task.query(on: req).sort(\.order, .ascending).all()
         
         let context = ["tasks": allTasks]
         return try req.view().render("taskList", context)

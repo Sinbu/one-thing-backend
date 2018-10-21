@@ -26,27 +26,50 @@
 <button type="submit" class="btn btn-primary" name="order" value="#count(tasks)" onsubmit="this.reset;">Submit Task</button>
 </form>
 
-
+<br>
 <h1>Current Tasks</h1>
 	<ul class="list-group">
 	#for(task in tasks) {
 		#if(task.dateCompleted == nil) {
-		  <li class="list-group-item d-flex justify-content-between align-items-center">#{task.title}
-		    <span class="badge badge-primary badge-pill">test2</span>
-		  </li>
-			
+		  <li class="list-group-item d-flex justify-content-between align-items-center">
+		    #(task.title)
+		    #if(task.size == "small") {
+		    <span class="badge badge-primary badge-pill">
+		    #(task.size)</span>
+			}
+			#if(task.size == "medium") {
+			<span class="badge badge-success badge-pill">
+		    #(task.size)</span>
+			}
+			#if(task.size == "large") {
+			<span class="badge badge-danger badge-pill">
+		    #(task.size)</span>
+			}
+		  </li>	
 		}
 	}
 	</ul>
 	<h1>Completed Tasks</h1>
+	<ul class="list-group">
 	#for(task in tasks) {
 		#if(task.dateCompleted) {
-			<h2>#(task.title)</h2>
-			<ul>
-				<li>#(task.size)</li>
-			</ul>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+		    #(task.title)
+		    #if(task.size == "small") {
+		    <span class="badge badge-primary badge-pill">
+		    #(task.size)</span>
+			}
+			#if(task.size == "medium") {
+			<span class="badge badge-success badge-pill">
+		    #(task.size)</span>
+			}
+			#if(task.size == "large") {
+			<span class="badge badge-danger badge-pill">
+		    #(task.size)</span>
+			}
 		}
 	}
+	</ul>
 }
 #set("h1") {New Task}
 #set("title") {One Thing}
