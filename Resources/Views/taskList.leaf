@@ -71,7 +71,7 @@
 		    #(task.size)</span>
 			}
 			</div>
-			<small>Done at #date(task.dateCompleted, "mm:ss, MMM dd yyyy")</small>
+			<small>Done at #date(task.dateCompleted, "hh:mm, MMM dd yyyy")</small>
 		</li>
 		}
 	}
