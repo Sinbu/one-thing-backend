@@ -23,7 +23,9 @@
   </label>
 </div>
 <br>
-<button type="submit" class="btn btn-primary" name="order" value="#count(tasks)" onsubmit="this.reset;">Submit Task</button>
+<input type="hidden" name="owner" value="azience@gmail.com">
+<input type="hidden" name="order" value="#count(tasks)">
+<button type="submit" class="btn btn-primary" onsubmit="this.reset;">Submit Task</button>
 </form>
 
 <br>
