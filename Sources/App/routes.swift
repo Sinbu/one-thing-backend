@@ -11,10 +11,9 @@ import Vapor
 // Get - All tasks
 
 public func routes(_ router: Router) throws {
-    
+    /*
     // MARK: - Version 1
     let v1 = router.grouped("v1")
-    
     
     // MARK: - JSON
     let taskRouter = v1.grouped("task")
@@ -101,4 +100,5 @@ public func routes(_ router: Router) throws {
             return req.redirect(to: "/v1/task/view/")
         }
     }
+ */
 }

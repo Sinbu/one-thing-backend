@@ -21,16 +21,20 @@ public func configure(
     services.register(directoryConfig)
     
     try services.register(FluentSQLiteProvider())
-    
+
     var databaseConfig = DatabasesConfig()
     let db = try SQLiteDatabase(storage: .file(path: "\(directoryConfig.workDir)tasks.db"))
     databaseConfig.add(database: db, as: .sqlite)
     services.register(databaseConfig)
-    
+
     try services.register(LeafProvider())
     config.prefer(LeafRenderer.self, for: ViewRenderer.self)
-    
+
     var migrationConfig = MigrationConfig()
     migrationConfig.add(model: Task.self, database: .sqlite)
     services.register(migrationConfig)
+
+    let wss = NIOWebSocketServer.default()
+    try websocket(wss)
+    services.register(wss, as: WebSocketServer.self)
 }
