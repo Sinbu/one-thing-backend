@@ -52,9 +52,9 @@ public func websocket(_ wss: NIOWebSocketServer) throws {
         }
         
         ws.onBinary { ws, data in
-            print("on Binary")
-            let data = try? decoder.decode(Task.self, from: data)
-            if let task = data {
+            let taskData = try? decoder.decode(Task.self, from: data)
+            if let task = taskData {
+                print("decoded task")
                 _ = task.save(on: req).map({ task in
                     Task.query(on: req).all().map({ tasks in
                         allTasks = tasks
@@ -62,6 +62,19 @@ public func websocket(_ wss: NIOWebSocketServer) throws {
                         for client in clients {
                             client.send(allTasksData)
                         }
+                    })
+                })
+            }
+            let listData = try? decoder.decode([Task].self, from: data)
+            if let taskList = listData {
+                print("decoded task list")
+                _ = taskList.compactMap({$0.save(on: req)}).map({ _ in
+                    Task.query(on: req).all().map({ tasks in
+                    allTasks = tasks
+                    let allTasksData = try! encoder.encode(allTasks)
+                    for client in clients {
+                        client.send(allTasksData)
+                    }
                     })
                 })
             }
