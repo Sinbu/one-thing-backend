@@ -68,15 +68,27 @@ public func websocket(_ wss: NIOWebSocketServer) throws {
             let listData = try? decoder.decode([Task].self, from: data)
             if let taskList = listData {
                 print("decoded task list")
-                _ = taskList.compactMap({$0.save(on: req)}).map({ _ in
-                    Task.query(on: req).all().map({ tasks in
-                    allTasks = tasks
-                    let allTasksData = try! encoder.encode(allTasks)
-                    for client in clients {
-                        client.send(allTasksData)
-                    }
+                
+                // Super messy way to make sure that it only shares the full list
+                // AFTER all tasks are saved
+                // 
+                var futureCount = 0
+                _ = taskList.map {
+                    futureCount += 1
+                    _ = $0.save(on: req).map({ task in
+                            futureCount -= 1
+                            if (futureCount == 0) {
+                            Task.query(on: req).all().map({ tasks in
+                                allTasks = tasks
+                                let allTasksData = try! encoder.encode(allTasks)
+                                for client in clients {
+                                    client.send(allTasksData)
+                                }
+                            })
+                        }
                     })
-                })
+                    
+                }
             }
         }
         
