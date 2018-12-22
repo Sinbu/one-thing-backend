@@ -71,7 +71,7 @@ public func websocket(_ wss: NIOWebSocketServer) throws {
                 
                 // Super messy way to make sure that it only shares the full list
                 // AFTER all tasks are saved
-                // 
+                //
                 var futureCount = 0
                 _ = taskList.map {
                     futureCount += 1
