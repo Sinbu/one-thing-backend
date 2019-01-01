@@ -18,7 +18,7 @@ struct FirebaseNetworkLayer {
     }
     
     func GetTasks(completion: @escaping (_ tasks: Data)->()) {
-        let url = URL(string: OTEnvironment.Staging.rawValue)!
+        let url = URL(string: "\(OTEnvironment.Staging.rawValue).json")!
         
         let get = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else {
@@ -32,15 +32,18 @@ struct FirebaseNetworkLayer {
     }
     
     func SaveTasks(data: Data, completion: @escaping (_ tasks: Data)->()) {
-        if var decodedData = try? decoder.decode(Task.self, from: data) {
-            
-            let url = URL(string: OTEnvironment.Staging.rawValue)!
-            
-            decodedData.id = UUID().uuidString
-            
+        if var decodedData = try? self.decoder.decode(Task.self, from: data) {
+            let url:URL
+            if let id = decodedData.id {
+                url = URL(string: "\(OTEnvironment.Staging.rawValue)/\(id).json")!
+            } else {
+                decodedData.id = UUID().uuidString
+                url = URL(string: "\(OTEnvironment.Staging.rawValue)/\(decodedData.id!).json")!
+            }
             var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.httpBody = try! encoder.encode(decodedData)
+            request.httpMethod = "PUT"
+            
+            request.httpBody = try! self.encoder.encode(decodedData)
             
             let post = URLSession.shared.dataTask(with: request) {(data, response, error) in
                 guard let data = data else {
@@ -53,10 +56,40 @@ struct FirebaseNetworkLayer {
             }
             post.resume()
         }
+        
+        if let decodedData = try? self.decoder.decode([Task].self, from: data) {
+            var countOfTasks = decodedData.count
+            
+            for task in decodedData {
+                let url = URL(string: "\(OTEnvironment.Staging.rawValue)/\(task.id!).json")!
+                var request = URLRequest(url: url)
+                request.httpMethod = "PUT"
+                
+                request.httpBody = try! self.encoder.encode(task)
+                
+                let post = URLSession.shared.dataTask(with: request) {(data, response, error) in
+                    guard let data = data else {
+                        return
+                    }
+                    countOfTasks -= 1
+                    print("saved. Count: \(countOfTasks)")
+                    if (countOfTasks <= 0) {
+                        print("saved all")
+                        completion(data)
+                    }
+                }
+                post.resume()
+            }
+            
+            
+            
+            
+        }
+    
     }
 }
 
 enum OTEnvironment: String {
-    case Staging = "https://one-thing-staging.firebaseio.com/lists/list%201/tasks.json"
-    case Production = "https://onething-fdfda.firebaseio.com/lists/list%201/tasks.json"
+    case Staging = "https://one-thing-staging.firebaseio.com/lists/list%201/tasks"
+    case Production = "https://onething-fdfda.firebaseio.com/lists/list%201/tasks"
 }
