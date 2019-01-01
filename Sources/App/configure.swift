@@ -30,10 +30,6 @@ public func configure(
     try services.register(LeafProvider())
     config.prefer(LeafRenderer.self, for: ViewRenderer.self)
 
-    var migrationConfig = MigrationConfig()
-    migrationConfig.add(model: Task.self, database: .sqlite)
-    services.register(migrationConfig)
-
     let wss = NIOWebSocketServer.default()
     try websocket(wss)
     services.register(wss, as: WebSocketServer.self)

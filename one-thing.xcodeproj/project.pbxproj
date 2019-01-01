@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4D9AF57E21D953CF0014D636 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9AF57D21D953CF0014D636 /* constants.swift */; };
+		4D9AF58021DAAE8A0014D636 /* FirebaseNetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9AF57F21DAAE8A0014D636 /* FirebaseNetworkLayer.swift */; };
 		OBJ_1078 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* AppTests.swift */; };
 		OBJ_1080 /* App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "one-thing::App::Product" /* App.framework */; };
 		OBJ_1081 /* Leaf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Leaf::Leaf::Product" /* Leaf.framework */; };
@@ -5237,6 +5239,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D9AF57D21D953CF0014D636 /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = SOURCE_ROOT; };
+		4D9AF57F21DAAE8A0014D636 /* FirebaseNetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseNetworkLayer.swift; sourceTree = "<group>"; };
 		"Console::Command::Product" /* Command.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Command.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Console::Console::Product" /* Console.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Console.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Console::Logging::Product" /* Logging.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Logging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -6883,6 +6887,8 @@
 				OBJ_13 /* configure.swift */,
 				OBJ_14 /* routes.swift */,
 				OBJ_15 /* websocket.swift */,
+				4D9AF57F21DAAE8A0014D636 /* FirebaseNetworkLayer.swift */,
+				4D9AF57D21D953CF0014D636 /* constants.swift */,
 			);
 			name = App;
 			path = Sources/App;
@@ -7932,7 +7938,7 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -7943,7 +7949,6 @@
 				OBJ_21 /* Dependencies */,
 				OBJ_882 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_503 /* KeyedCache */ = {
@@ -10860,7 +10865,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_882 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -12086,6 +12091,8 @@
 				OBJ_937 /* configure.swift in Sources */,
 				OBJ_938 /* routes.swift in Sources */,
 				OBJ_939 /* websocket.swift in Sources */,
+				4D9AF57E21D953CF0014D636 /* constants.swift in Sources */,
+				4D9AF58021DAAE8A0014D636 /* FirebaseNetworkLayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
