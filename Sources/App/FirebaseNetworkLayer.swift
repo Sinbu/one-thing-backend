@@ -12,13 +12,14 @@ struct FirebaseNetworkLayer {
     let encoder = JSONEncoder()
     // let apiKey = OTSecurity.apiKey
     let decoder = JSONDecoder()
+    let environement = OTEnvironment.Production.rawValue
     
     private init() {
         
     }
     
     func GetTasks(completion: @escaping (_ tasks: Data)->()) {
-        let url = URL(string: "\(OTEnvironment.Staging.rawValue).json")!
+        let url = URL(string: "\(environement).json")!
         
         let get = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else {
@@ -35,10 +36,10 @@ struct FirebaseNetworkLayer {
         if var decodedData = try? self.decoder.decode(Task.self, from: data) {
             let url:URL
             if let id = decodedData.id {
-                url = URL(string: "\(OTEnvironment.Staging.rawValue)/\(id).json")!
+                url = URL(string: "\(environement)/\(id).json")!
             } else {
                 decodedData.id = UUID().uuidString
-                url = URL(string: "\(OTEnvironment.Staging.rawValue)/\(decodedData.id!).json")!
+                url = URL(string: "\(environement)/\(decodedData.id!).json")!
             }
             var request = URLRequest(url: url)
             request.httpMethod = "PUT"
@@ -61,7 +62,7 @@ struct FirebaseNetworkLayer {
             var countOfTasks = decodedData.count
             
             for task in decodedData {
-                let url = URL(string: "\(OTEnvironment.Staging.rawValue)/\(task.id!).json")!
+                let url = URL(string: "\(environement)/\(task.id!).json")!
                 var request = URLRequest(url: url)
                 request.httpMethod = "PUT"
                 
