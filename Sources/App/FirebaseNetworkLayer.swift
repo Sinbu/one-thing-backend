@@ -18,7 +18,7 @@ struct FirebaseNetworkLayer {
     }
     
     func GetTasks(completion: @escaping (_ tasks: Data)->()) {
-        let url = URL(string: "\(OTEnvironment.Staging.rawValue).json")!
+        let url = URL(string: "\(OTEnvironment.Production.rawValue).json")!
         
         let get = URLSession.shared.dataTask(with: url) {(data, response, error) in
             guard let data = data else {
