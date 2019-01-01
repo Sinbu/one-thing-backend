@@ -12,7 +12,7 @@ struct FirebaseNetworkLayer {
     let encoder = JSONEncoder()
     // let apiKey = OTSecurity.apiKey
     let decoder = JSONDecoder()
-    let environement = OTEnvironment.Production.rawValue
+    let environement = OTEnvironment.Staging.rawValue
     
     private init() {
         
