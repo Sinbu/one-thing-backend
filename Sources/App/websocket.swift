@@ -18,8 +18,8 @@ public func websocket(_ wss: NIOWebSocketServer) throws {
     wss.get() { ws, req in
         clients.append(ws)
         print("Client connected")
-        FirebaseNetworkLayer.shared.GetTasks { data in
-            print("sent data")
+        FirebaseNetworkLayer.shared.GetListsAsData { data in
+            print("sending lists initial connection")
             ws.send(data)
         }
         
@@ -28,13 +28,20 @@ public func websocket(_ wss: NIOWebSocketServer) throws {
             if (text == "clients") {
                 ws.send("clients connected \(clients.count)")
             }
+            if (text == "list") {
+                FirebaseNetworkLayer.shared.GetListsAsData { data in
+                    print("sending lists")
+                    ws.send(data)
+                }
+            }
         }
+        
         
         ws.onBinary { ws, data in
             print("on binary")
-            FirebaseNetworkLayer.shared.SaveTasks(data: data) { data in
+            FirebaseNetworkLayer.shared.SaveList(data: data) { data in
                 print("saved data")
-                FirebaseNetworkLayer.shared.GetTasks { data in
+                FirebaseNetworkLayer.shared.GetListsAsData { data in
                     for client in clients {
                         client.send(data)
                     }
